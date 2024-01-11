@@ -1,0 +1,75 @@
+---
+title: "3주차 2강 실습 - 인공지능을 위한 R과 파이썬"
+format: html
+---
+
+### R 과 Python 에서 가장 중요한 기능
+
+```{r}
+# help(range)
+
+?range
+```
+
+
+```{python}
+help(range)
+
+# ?range
+```
+
+### R 에서 iris data 불러오기
+
+
+```{r}
+View(iris)
+```
+
+```{r}
+names(iris)
+```
+
+```{r}
+#concatenate -> c(1,2,3)
+names(iris)=c('sl','sw','pl','pw','sp')
+names(iris)
+```
+
+```{r}
+head(iris)
+```
+
+```{r}
+class(iris)
+```
+
+```{r}
+class(iris$sp)
+```
+
+```{r}
+levels(iris$sp)
+```
+
+
+### R 에서 iris data 로 그림 그리기
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+ggplot(iris)+
+  geom_point(aes(sw,sl,col=sp))+
+  geom_smooth(aes(sw,sl,col=sp),method="lm", se=F) 
+  # method = 'lm' 회귀분석, se = standard error > TRUE일 경우 신뢰구간 표현 
+```
+
+```{r}
+ggplot(iris)+
+  geom_point(aes(sw,sl,col=sp))+
+  geom_smooth(aes(sw,sl),method="lm", se=F ) # col = sp가 없음
+```
+
+변수 하나(sp)를 고려하냐 안하냐에 따라, sw에 따른 sl의 경향이 다르게 보인다. iris 데이터를 통해, 심슨의 역설이 작용하는 것을 확인할 수 있다.
+

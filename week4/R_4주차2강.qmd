@@ -1,0 +1,113 @@
+---
+title: "4주차 2강 실습 - 인공지능을 위한 R과 파이썬"
+subtitle: "R에서의 객체 생성, 조회"
+format: html
+---
+
+### R에서 객체의 생성과 조회
+
+```{r}
+ls()
+```
+
+```{r}
+x = 1
+y = seq(1,4)
+z = matrix(y,2,2) # 2x2행렬
+
+y # 수열
+z # 행렬
+```
+
+2가 아래로 쓰여짐 python과 다른 부분
+
+```{r}
+ls()
+```
+
+```{r}
+search()
+```
+
+위 결과는 아래 메모리 작업공간을 보여준 것.
+
+![](./images_4주차2강/1.png)
+
+".GlobalEnv"
+
+"tools:rstudio"  : R 스튜디오에 필요한 객체 저장되어 있는 작업공간
+
+### 패키지 install 했을 때 작업공간에 변화가 있는가? 
+
+```{r}
+# install.packages("patchwork")
+```
+
+
+```{r}
+search()
+```
+
+아직 변화가 없음
+
+### 라이브러리 사용 등록을 하면?
+
+```{r}
+library(patchwork)
+```
+
+```{r}
+search()
+```
+
+두번째 위치에 patchwork 가 생김 `"package:patchwork"`
+
+즉 `library()`를 이용하여 사용할 패키지를 2번째 메모리 작업공간에 연결하는 것.
+
+### 2번째 작업공간 위치에 있는 객체 확인
+
+```{r}
+ls(2)
+```
+
+patchwork 패키지 내부에 있는 객체 확인할 수 있음.
+
+### package:datasets - 예제 데이터셋 확인(8번째 작업공간에 존재)
+
+```{r}
+# ls(8)
+ls("package:datasets")[20:50]
+```
+
+`"iris"` 데이터셋이 저장되어있는 곳이다.
+
+
+### 새로운 객체 생성
+
+```{r}
+irix = iris
+```
+
+```{r}
+ls() # = ls(1) 즉, .GlobalEnv를 보는 것과 같다.
+```
+
+.GlobalEnv 의 첫번째 위치에 `irix` 객체 생김
+
+```{r}
+attributes(irix)
+```
+
+
+### 객체 삭제
+
+```{r}
+ls()
+```
+
+```{r}
+rm(y, irix) # rm 객체 제거
+
+ls()
+```
+

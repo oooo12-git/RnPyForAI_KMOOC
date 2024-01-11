@@ -1,0 +1,26 @@
+---
+title: "Example_A"
+format: html
+---
+
+<br> \# 문서에서 줄 간격을 크게
+
+-   QMD example:
+    -   A is the 1st
+    -   111
+    -   222
+
+```{r}
+integrate(function(x) sqrt(1-x^2),-1,1)
+```
+
+```{python}
+
+import numpy as np
+import scipy.integrate as integrate
+
+integrate.quad(lambda x: np.sqrt(1-x**2),-1,1)
+
+```
+
+</br>
