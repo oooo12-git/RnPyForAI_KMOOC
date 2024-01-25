@@ -1,0 +1,189 @@
+---
+title: "R 과 Python 6주차 - 제2강"
+format: html
+editor: visual
+---
+
+<br>
+
+## R에서의 프로그래밍
+
+<br>
+
+### string / if-else / loop / function
+
+<br>
+
+#### string (vector)
+
+<br>
+
+```{r}
+x = c('abc', "xy")
+
+x
+```
+
+
+```{r}
+x[1]
+length(x)
+length(x[1])
+
+```
+
+```{r}
+x
+1:2
+```
+
+```{r}
+paste(x, 1:2, sep="_")
+```
+
+
+```{r}
+paste(x, 1:2, sep="")
+```
+
+
+```{r}
+paste0(x, 1:2)
+```
+
+
+```{r}
+x = paste0(x, 1:2, collapse="#")
+x
+```
+
+```{r}
+strsplit(x, split="#")
+```
+
+
+```{r}
+strsplit(x, split="#")[[1]]
+```
+
+```{r}
+
+strsplit(x, split="")[[1]]
+
+```
+
+<br>
+
+###### meaning of "+"
+
+<br>
+
+```{r}
+
+1+2
+
+c(1, 3, 5) + c(1, 2, 3 )
+
+```
+
+```{r}
+
+paste0( 'abc', 'def' )         
+
+c( c(1, 3, 5), c(1, 2, 3 ) )  # concatenate c  
+
+```
+
+<br>
+
+###### Loop and Condition
+
+<br>
+
+```{r}
+
+x = seq(1,10)
+
+s = 0
+sv = NULL
+
+for( a in x ){
+    if(a %% 3 == 0) next
+    s = s + a**2
+    sv = c(sv, a)
+}
+
+s
+sv
+
+```
+
+```{r}
+
+s  = 0
+sv = NULL
+
+a = 0
+while( a < 10){
+    a = a+1
+    if(a %% 3 == 0) next
+    s = s + a**2
+    sv = c(sv, a)
+}
+
+s
+sv
+
+```
+
+<br>
+
+###### 대안적 방법
+
+<br>
+
+```{r}
+
+x = seq(1,10)
+
+z = x[ x %% 3 !=0 ];  z
+
+sum( z**2 )
+
+```
+
+```{r}
+
+x = c( -2, -1, 0, 1)
+y = c( 1, 2, 3, 4)
+
+x
+y
+
+```
+
+```{r}
+
+y[x<0] = 0 ;  y
+
+ifelse( x<0,  0,  y)
+
+```
+
+<br>
+
+###### 함수의 정의와 호출
+
+<br>
+
+```{r}
+
+fn = function(x){
+          x = x[x>0]
+          length(x) # return 사용하 않아도 마지막 문장 리턴
+       }
+
+
+fn( c(-1, 0, 1, 2) )
+
+```
