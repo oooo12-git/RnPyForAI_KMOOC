@@ -1,0 +1,208 @@
+---
+title: "R 과 Python 7주차 - 제2강"
+format: html
+editor: visual
+---
+
+<br>
+
+## Useful R packages
+
+<br>
+
+### tidyverse ( dplyr / ggplot2 )
+
+<br>
+
+#### dplyr
+
+<br>
+
+```{r}
+library(tidyverse)
+```
+
+<br>
+
+```{r}
+x = 3
+tibble( x=1:2,  x*x,  'x $'=x^3,  !!x ) 
+# global env에 있는 변수를 사용하려면 !!를 사용
+```
+
+<br>
+
+```{r}
+mtcars
+```
+
+<br>
+
+```{r}
+mtx = mtcars[mtcars$gear!=5,]
+mtx
+dim(mtx)
+```
+
+```{r}
+Count = tapply(  mtx,  mtx$gear,                 
+			       function(x) length(x$mpg) )
+
+Avg   =  tapply( mtx, mtx$gear,                 
+			       function(x) mean(x$mpg)  )
+
+Count
+Avg
+```
+
+<br>
+
+```{r}
+
+mtcars %>% 
+    filter( gear!=5 ) 
+
+```
+
+```{r}
+
+mtcars %>% 
+    filter( gear!=5 ) %>% 
+        group_by(gear) %>%                   
+          summarize(  Avg=mean(mpg),  Count=n()  )
+
+```
+
+<br>
+
+```{r}
+
+mtcars %>% 
+    filter( gear!=5 ) %>% 
+      select(mpg, wt, vs, carb) %>% # 변수를 고른다
+        # mutate( mpg_wt = mpg/wt ) #새로운 변수를 만든다
+        transmute( mpg_wt = mpg/wt ) #새로운 변수만 만들고 남긴다.
+
+```
+
+```{r}
+
+mtcars %>% 
+    filter( gear!=5 ) %>% 
+      select(mpg, wt, vs, carb) %>%
+        mutate( mpg_wt = mpg/wt ) %>% 
+        arrange(desc(mpg_wt))  %>% # 나열 순서 desc(감소하는 순서)로 한다.
+        relocate( mpg_wt, wt, mpg) %>% # 변수 배열 순서 변경(나머지는 이전에 있던 순서대로 배열)
+        head(5)
+
+```
+
+<br>
+
+#### ggplot2
+
+<br>
+
+```{r}
+
+library(GGally)
+
+```
+
+<br>
+
+```{r}
+
+names(iris) = c('sl','sw','pl','pw','sp')
+iris
+```
+
+<br>
+
+```{r}
+
+ggpairs(iris, aes(color=sp),progress=F)
+
+```
+
+<br>
+
+```{r}
+
+p1 = ggplot(iris) + 
+       geom_density(aes(sl,fill=sp))
+
+p1
+```
+
+<br>
+
+```{r}
+
+p2 = ggplot(iris) + 
+       geom_boxplot(aes(sp,sl,fill=sp))
+
+p2
+```
+
+<br>
+
+```{r}
+
+iris2 = iris[1:100,]
+
+p3  = ggplot( data=iris, aes(sw,sl) ) + 
+      geom_point( data=iris2, 
+                  aes(col=sp),size=3.0)+
+      geom_point()
+
+p3
+```
+
+```{r}
+
+p2
+```
+
+<br>
+
+```{r}
+
+library(patchwork)
+
+```
+
+```{r}
+
+p1 + p2 + p3
+
+```
+
+<br>
+
+```{r}
+
+p1+p2+p3 +plot_layout(guides = 'collect')
+
+```
+
+<br>
+
+```{r}
+
+p1+
+  ( p2+theme(legend.position = "none") )+
+  ( p3+theme(legend.position = "none") )+
+     plot_layout(guides = 'collect')
+
+```
+
+<br>
+
+<br>
+
+```{r}
+
+(p1 + p2 )/ p3
+
+```
